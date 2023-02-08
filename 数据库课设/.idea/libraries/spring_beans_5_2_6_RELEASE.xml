@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="spring-beans-5.2.6.RELEASE">
+    <CLASSES>
+      <root url="jar://E:/spring/spring-framework-5.2.6.RELEASE/libs/spring-beans-5.2.6.RELEASE.jar!/" />
+      <root url="jar://E:/spring/spring-framework-5.2.6.RELEASE/libs/spring-context-5.2.6.RELEASE.jar!/" />
+      <root url="jar://E:/spring/spring-framework-5.2.6.RELEASE/libs/spring-core-5.2.6.RELEASE.jar!/" />
+      <root url="jar://E:/spring/spring-framework-5.2.6.RELEASE/libs/spring-expression-5.2.6.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

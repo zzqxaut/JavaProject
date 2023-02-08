@@ -1,0 +1,196 @@
+
+create table user(
+    username char(20)primary key,
+    password char(20),
+    truename char(20),
+    usertype char(10),
+    email char(30),
+    phonenumber char(11),
+    balance double,  # 余额
+    borrownum int    # 总借书数量
+);
+
+create table book(
+    bookname char(50),
+    auther char(20),
+    booktype char(20),
+    publisher char(20),
+    booknum int,
+    price double,
+    introduction text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+    is_borrow int,
+    primary key(bookname,auther)
+);
+
+
+create table book_no(
+    bookno char(20)primary key,
+    bookname char(50),
+    state char(20) # 书籍的状态
+#     foreign key (bookname) references book(bookname)
+);
+
+create table borrow_book(
+    bookno char(20),
+    username char(20),
+    bookname char(50),
+    borrowtime char(20),
+#     foreign key (bookno) references book_no(bookno),
+#     foreign key (username) references user(username),
+#     foreign key (bookname) references book(bookname)
+    primary key(bookno, borrowtime)
+);
+
+create table return_book(
+    bookno char(20), #ISBN码
+    username char(20),
+    bookname char(50),
+    returntime char(20),
+#     foreign key (bookno) references book_no(bookno),
+#     foreign key (username) references user(username),
+#     foreign key (bookname) references book(bookname)
+    primary key(bookno, returntime)
+);
+
+create table inform(
+    infonum int primary key,
+    title char(20),
+    infotime char(20),
+    content char(200)
+);
+
+INSERT INTO `database`.inform (infonum, title, infotime, content) VALUES (1, '交钱', '2022/12/8', '快交保护费！！！！！');
+INSERT INTO `database`.inform (infonum, title, infotime, content) VALUES (2, '任怡晨', '2022/12/9', '你真胖');
+
+
+
+INSERT INTO `database`.user (username, password, truename, usertype, email, phonenumber, balance, borrownum) VALUES ('aaa', '111', 'zzz', '用户', 'zz@163.com', '15766666666', 0, 0);
+INSERT INTO `database`.user (username, password, truename, usertype, email, phonenumber, balance, borrownum) VALUES ('bb', '111', 'ccc', '用户', 'zz@163.com', '15766666666', 0, 0);
+
+INSERT INTO `database`.book_no (bookno, bookname, state) VALUES ('1', 'C程序设计教程', '1');
+INSERT INTO `database`.book_no (bookno, bookname, state) VALUES ('2', 'C程序设计教程', '1');
+INSERT INTO `database`.book_no (bookno, bookname, state) VALUES ('3', 'C程序设计教程', '1');
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('Authorware多媒体课件制作实用教', '缪亮、付邦道', '多媒体', '新华社', 10, 29, 'Authorware是美国Macromedia公司推出的、功能强大的多媒体制作软件，它广泛应用于多媒体光盘制作、课件制作、教育教学软件及其他多媒体演示系统制作。 本书是畅销教材《Authorware多媒体课件制作实用教程》的升级版。在保留原来图书优秀风格的基础上，总结了近两年本书在各级教学、培训中的使用经验，调整了图书结构，更加注重Authorware课件制作技术的基础知识的系统讲解。为了更便于教学，每章都增加了“本章习题”和“上机练习”两个模块，这样可以使读者能及时检验学习成果以及举一反三制作出更多精彩的课件范例。 本书以实例带动教学，详细讲述了用Authorware制作多媒体教学课件的方法与技巧。全书共10章，分别介绍了多媒体课件入门知识和课件素材制作、Authorware课件基础知识、文字和图形在Authorware课件中的应用、等待和擦除图标在Authorware课件中的应用、影片和动画在Authorware课件中的应用、移动图标在Authorware课件中的应用、Authorware课件的交互控制、增强Authorware课件的功能、Authorware课件典型结构、调试和发布课件等内容。 在本书的配套光盘中，提供了本教材用到的课件范例源文件及各种素材。为了让读者更轻松地掌握Authorware课件制作技术，作者制作了配套视频多媒体教学光盘。视频教程包括图书的全部内容，全程语音讲解，真实操作演示，让读者一学就会！ 本书面向学习课件制作的初中级读者，可作为中小学教师的自学和培训教材，也可供师范院校教学使用。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('C程序设计教程', '姜桂洪、谷亚鹏', 'C程序设计', '新华社', 28, 38, '本书采用Turbo C++ 3.0作为语言环境，系统地介绍了进行C程序设计的基本操作、算法描述、数据类型、流程控制、编程技巧等内容。语言通俗、简洁、流畅，内容论述深入浅出，例题讲解细致详尽且具有代表性，让具备一定的计算机基础知识的计算机语言初学者能够自己读明白。 全书共12章，知识体系完整，结构安排合理，内容深度适宜，并将习题分为课堂测试、课后习题和单元测试3个层次。 本书适合作为高等院校本、专科学生学习C语言的教材，也可作为计算机编程人员和相关领域的技术工作者自学与参考用书。 另外，本书还配有辅助教材《C程序设计教程习题解答与上机指导》。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('C程序设计教程习题解答与上机指导', '姜桂洪、王军、谷亚鹏', 'C程序设计', '新华社', 32, 19, '本书是姜桂洪等编著的《C程序设计教程》（清华大学出版社出版的配套教材。全书包括3部分内容：第1部分是《C程序设计教程》习题与参考答案；第2部分是C语言的常用实践环境与上机指导，分别介绍了C语言上机常用的Turbo C++ 3.0和Visual C++ 6.0的上机操作的基本知识、语言环境、错误信息；第3部分是《C程序设计教程》上机实验安排，介绍指导学生上机实验时需要注意的问题和常见的调试程序的基本知识，并根据教材内容及其重要程度提供了10个实验。 本书结构合理、内容新颖、深度适宜、实用性强，不仅可以作为《C程序设计教程》的参考书，也可以作为使用其他C语言教材的参考书。 本书适合作为高等院校本科、专科学生学习C语言课程的参考书，也可作为从事计算机编程人员和相关领域的技术工作者自学与参考用书。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('Java与UML面向对象程序设计教程', '刘晓冬', 'Java', '新华社', 15, 32, '本书将Java程序设计技术与面向对象思想并重，将当前用来建模和开发具有工业水准软件系统的统一建模语言（UML）与Java结合介绍，强调面向对象的软件开发过程。全书在系统而全面地讲述Java程序设计语言的基础上，介绍了模型驱动的体系结构、UML概念和RUP过程，使Java程序员可以利用UML工具集来记录其设计抉择，从战略高度理解项目规划和建立企业级Java应用程序的过程，从而高效地开发出成功的项目。全书强调理论和实践的结合，案例丰富，紧扣面向对象分析与设计技术的最新进展。 全书内容丰富，易学，既可作为高等院校“Java程序设计”或“面向对象技术”课程的教材或教学参考书，也可作为广大软件开发人员和系统分析人员的自学参考书。 刘晓冬 博士、清华大学副教授，清华大学深圳研究生院宽带网多媒体研究中心副主任。中国计算机学会高级会员，中国计算机学会多媒体专委会委员。1971年出生，哈尔滨人。1989-1993年就读于哈尔滨工业大学计算机科学与工程系获学士学位，1993-1996年在哈尔滨工业大学计算机科学与工程系获硕士学位，1996-1999年在哈尔滨工业大学计算机科学与工程系获博士学位，1999-2001年在清华大学电子系做博士后，2001年至今任清华大学深圳研究生院教师。从事计算机学习和研究开发工作２０多年，具有扎实的理论功底和实践创新能力。作为主讲教师为清华大学研究生开设过《编译原理》、《JAVA程序设计》、《面向对象技术》、《数据结构》、《C++语言程序设计》等十余门课程，累计授课1000多学时。他主持和作为骨干研究人员开发的项目获得过国家广电总局科技创新一等奖、广东省科技进步二等奖和北京市科技进步三等奖。申请发明专利5项，目前已获授权三项。在国内外发表论文40余篇。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('PHP Web程序设计教程与实验', '徐辉等', '计算机网络', '新华社', 13, 38, '本书以PHP 5为主要编程工具，以MySQL 4.1为Web数据库，结合多年的Web网站开发的实际经验和教学，全面地介绍开发Web动态网页的程序设计技术，内容包括Web基础、HTML基础、JavaScript客户端脚本语言、动态Web网站环境的构建、PHP语法基础、PHP面向对象编程、MySQL数据库操作、PHP访问MySQL数据库、会话和用户认证、XML语法、PHP 5的XML文档解析、基于PHP 5的Web服务、XML与数据库之间数据交换、网络考试应用系统实例等内容。 本书内容丰富，结构合理，由浅入深，例题丰富，实验内容充实，实用性强，每章后面安排有习题和实验题。 本书可作为高等院校本科或专科计算机、电子商务、信息管理与信息系统以及相关专业的Web开发课程的教材或教学参考书，也可供PHP编程人员参考。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('信息对抗技术', '粟苹', '其他', '新华社', 6, 46, '本书在阐述信息对抗技术基本概念的基础上，重点介绍信息对抗涵盖的几个主要领域——雷达对抗、通信对抗、光电对抗、水声对抗的基本原理和方法，最后简单介绍了网络对抗的基本概念和原理。 本书可作为信息对抗技术及相关专业的本科高年级学生和研究生教材或教学参考书，也可作为雷达对抗、通信对抗、光电对抗、水声对抗等有关专业的工程技术人员参考书。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('光通信导论', '吴重庆等', '光电子', '新华社', 18, 29, '光信息科学与技术的重要分支，光通信已成为当代通信的主流，也是当今最成熟、最有影响力的光信息技术，形成了自身完整的理论体系和技术体系，带动了激光器、光检测、光无源器件、光放大、全光信号处理等各类相关技术的发展，并影响到光存储技术、光显示技术以及量子光学的发展。 本书全面介绍了光通信基础知识，涵盖了信息论与通信原理的基本知识、基本光通信系统，以及电与光复用技术等内容。除绪论外全书共8章，第1、2章是信息与通信的基础知识；第3～5章是基本光纤通信系统的三个组成部分：光发射、光接收和传输光路；第6章介绍了SDH同步复用体系与异步电复用技术；第7章介绍了光放大的物理知识，并为第8章做好准备，第8章是光路复用技术。本书强调技术的先导性，并把光通信中最基本的概念和最重要技术作为重点，以便学生在今后较长时期运用这些知识和概念去适应技术的新变化。 本书站在比较高的角度看待具体技术的演进，很多内容是作者的科研经历，语言浅显易懂，适合光信息科学与技术、光学工程、通信和电子科学技术等专业的高年级学生与研究生使用。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('多媒体技术应用（第2版）', '陈洁', '多媒体', '新华社', 11, 23, '本书介绍了多媒体的基本概念和多媒体作品的基本制作技术，包括声音、图像、视频等多媒体素材的常用编辑和处理工具，以及多媒体开发工具Authorware的应用，使不具备编程能力的用户也能够出色地创作自己的多媒体作品。全书分为3个部分共12章，讲授多媒体系统概述、媒体素材的收集和准备、图形图像处理软件、视频编辑与处理软件、音频编辑与处理软件、媒体捕获软件、Authorware基础知识、多媒体信息的应用、交互与导航控制、变量、函数和知识对象、Authorware的综合应用、多媒体演示文稿制作等内容，并配有丰富的例题和习题（包括上机练习题），最后附有习题解答或上机操作提示。 全书图文并茂，通俗易懂，是学习多媒体知识和多媒体制作技术的得力工具，适合作为高等学校文科和其他非计算机专业学生学习多媒体技术的教材，同时也可供多媒体爱好者及从事多媒体创作的人员学习和参考。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('密码学导引：原理与应用', '肖国镇等', '密码学', '新华社', 17, 29, '随着电子通信的发展，信息安全在实际应用中越来越重要了。在世界上任何一个地方都可以公开接入计算机网络，在其中交换的消息要求保证完整性并保护消息不被复制。电子商务还需要法律范畴上的有效的数字签名以及安全的支付协议。现代密码学对所有的此类问题提供了解决的方案。 本书源于Nurnberg 的Georg-Simon-Ohm应用科学大学计算机科学专业学生的课程，是给计算机科学、数学以及电子工程专业高年级本科生和研究生开设的密码学课程讲义。 本书的第1部分（第1~4章）从本科生的理解水平介绍了对称密码体制和非对称密码体制中的加密方案以及数字签名方案，还介绍了有关密码协议，比如，身份认证、电子选举以及电子现金。这一部分重点讨论模代数学和以模代数学为基础的非对称密码学。因为在这一部分中我们没有提及概率理论，所以对于一些非正式的定义（比如单向函数和抗碰撞的杂凑函数）我们给出了必要的介绍。 本书第2部分（第5~10章）的内容是说明如何使用概率理论精确解释诸如密码体制的安全性和函数的单向性这样的一些基本概念，并指出什么假设保证了公钥密码体制（比如RSA）的安全性。这一部分涉及了一些更深入的课题，比如，单向函数的比特安全、计算上安全的伪随机发生器、密码体制的随机性和安全性之间的密切关系等问题。这一部分还给出了可证明安全的加密和签名体制的一些经典例子，同时，给出了它们的安全性证明。 虽然第2部分特别给出了数学构架和一些明确的定义，但是对一些必需的数学背景并没有介绍。对于数学和计算机科学专业刚起步的学生，学了基础的课程就足够他们理解本书。读者应该掌握代数的基本理论，比如，群、环、域的概念，还应该能理解附录中概率理论的基础知识。其中，附录A包含了理解密码方法必需的一些代数和数论结果。还有一些证明和推导，比如，基本的欧几里得算法和中国剩余定理；也包括了一些更深入的课题，比如，Legendre符号和Jacobi符号以及概率素性检测等内容。附录B涵盖了本书第2部分用到的所有概率和信息论方面的概念和结果。从数学难度的角度考虑，书中没有介绍椭圆曲线密码。本书通过介绍经典的密码体制，例如，整数集Z的剩余类环Zn上的RSA体制，详细描述了公钥密码学的关键概念。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('微机接口技术（第二版）', '邵时', '接口技术', '新华社', 26, 21, '本书从微型机接口设计的基本方法及实践要领出发，重点讲授了采用通用可编程接口芯片设计常用接口电路的方法，并对常用的接口卡、标准接口，以及通过标准接口扩展外设的基本方法做了介绍。本书内容新颖、实用。 本教材不仅适合于高职高专，也适合于成人教育的计算机专业的学生。还可作为相关技术人员的培训教材和技术参考资料。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('微系统设计与制造（清华大学信息科学技术学', '王喆垚', '微电子', '新华社', 5, 59, '微系统（MEMS）是一门多学科高度交叉的前沿学科领域，其设计、制造和应用广泛涉及到物理学、化学、力学、微电子学、电子学、光学、生物医学和控制工程等多个学科。本书介绍微系统的基础理论、分析设计方法和制造技术，以及前沿应用领域的多种典型器件。主要内容包括： 微系统基本力学、微系统制造技术、微型传感器、微型执行器、射频微系统（RF MEMS）、光学微系统（MOEMS）、生物医学微系统（BioMEMS）以及微流体与芯片实验室。本书强调设计与制造相结合、基础与前沿相结合，在基础理论和制造技术的基础上，深入介绍典型器件的设计和制造方法以及重点和前沿应用研究领域，力争展示微系统的全貌。 本书可供高等院校电子、微电子、微机电系统、测控技术与仪器、精密仪器、机械工程、控制工程等专业的高年级本科生、研究生和教师使用，也可供相关领域的工程技术人员参考。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('数字信号处理及MATLAB实现（第二版）', '余成波、杨菁、杨如民等', '电子信息基础', '新华社', 9, 23, '本书就数字信号处理的基本理论、算法及MATLAB实现进行系统的论述。全书共7章，前两章简要介绍了离散时间信号与系统及Z变换，第3、4章讨论离散傅里叶变换及快速算法，第5~7章介绍数字滤波器的结构和设计方法。在论述了基本理论和算法后，本书结合数字信号处理的典型例题说明用MATLAB进行数字信号处理的编程方法与技巧。 本书每章末均编有一定数量的习题，主要用以检验学生对基本概念的理解和对分析方法的掌握； 同时，本书还配备了大量MATLAB上机实验。 本书可作为高等工科院校计算机、电子信息、通信、自动化等专业本科生的教材，也可供研究生以及从事有关工作的科技人员学习参考用书。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('数字电子技术基础', '范爱平、周常森', '电子信息基础', '新华社', 19, 29.8, '本书是山东大学山东省精品课程“电子技术基础”配套系列教材中的一本。主要内容参照了教育部高等学校电子电气基础课程教学指导分委员会最新修订的数字电子技术基础课程教学基本要求，并融合了作者多年的教学经验及教学改革的体会。全书包括初识数字电路、分析与设计数字电路的工具、逻辑门电路、组合逻辑电路、记忆单元电路、时序逻辑电路、脉冲单元电路、半导体存储器、数模与模数转换器、可编程逻辑器件共10章。在内容安排上注意了由浅入深、循序渐进。在文字叙述上力求通俗易懂、生动有趣、层层展开，具有较强的可读性与可教性。为了便于多媒体教学，本书配有详实的电子课件。 本书主要作为高等院校电气、电子信息及自动化类专业的教材，也可供从事电子技术工作的有关人员和自学者参考。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('数据库系统教程', '苑森淼等', '数据库原理', '新华社', 33, 29, '本书详细地介绍了数据库系统的原理。全书分为基础篇和系统篇两部分。基础篇完整地介绍了数据库建模、关系演算、数据库语言及其查询优化和编程环境； 系统篇详细讲解了数据库系统的事务与并发控制、数据库的完整性与安全性、数据库设计的理论基础以及面向对象技术对关系型数据库的影响。 本书可作为高等院校计算机相关专业的数据库课程教材，也可供从事信息领域工作的科技人员和工程技术人员以及其他有关人员参阅。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('数据结构算法解析', '高一凡', '数据结构', '新华社', 27, 29.5, '本书为严蔚敏、吴伟民编著的《数据结构(C语言版)》(清华大学出版社出版,本书将其简称为教科书)的学习辅导书。主要内容包括教科书中各主要数据存储结构的基本操作函数、调用这些基本操作的主程序和程序运行结果以及教科书中各主要数据存储结构的图示。 本书结合存储结构和算法,配合大量的图示,对于一些较难理解的算法,还配有文字说明。 本书所有程序均在计算机上运行通过,这些程序可通过清华大学出版社的网站下载。 本书适用于使用严蔚敏、吴伟民编著的《数据结构(C语言版)》作教材的高等学校学生和自学者,也可供使用其他《数据结构》教材者和软件编程人员参考,同时也是考研很好的参考书。 08年3月18日更新课件', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('用Spec C作系统设计', '边计年等', 'TCP/IP', '新华社', 2, 25, '全书共分6章。第1章介绍设计方法学和SpecC语言，把SpecC作为专门面向综合的系统级设计语言（system-level design language,SLDL)的一个实例。第2章讨论系统级设计的4个不同的抽象级别，定义每一个级别上的模型，并且详细解释如何从一个抽象级别逐步细化到下一个级别。为了以实例说明设计方法学，我们将设计方法学应用于工业界的2个实例（移动电话的语音编码/解码器和图像编码器）分别在第3章和第4章中介绍。第5章介绍围绕上述设计方法学而研发的整个设计环境和可能使用的工具。最后，在第6章中介绍SpecC技术开放协会（SpecC Technology Open Consortium) ，该协会的目的是促使SpecC语言成为世界性的标准，以便于相互协同工作、IP核（intellectual property core）相互交流等。本书将给SOC或嵌入式系统的设计者和设计管理者带来巨大效益。他们可以利用本书的结果开发出新的设计方法，使其设计效率以指数形式上升。对于那些原来是RTL级、逻辑级或物理级的设计者来说，如果他们对转移到系统级设计有兴趣，他们会发现可以对设计整体有全面的把握。本书的设计模型定义了IP模型和函数，适合于IP核提供者和使用者交流用。一个高效的方法学（例如本书所提供的方法）将帮助产品计划部门快速开发出新产品，或者引出新的商业模型（例如电子设计或根据定单设计产品）。最后，系统设计领域的学者和学生可以在本书中找到形式化的、有很好结构的设计流程实例。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('电子技术', '林红、周鑫霞', '电子信息基础', '新华社', 36, 34, '本书按照1995年教育部（原国家教委）颁发的“高等工业学校电子技术基础课程教学基本要求”，本着简洁、通俗、先进和实用的原则而精心编写。 本书主要内容有半导体二极管及其基本电路、晶体管及其基本放大电路、场效应管及其基本放大电路、反馈放大电路、集成电路运算放大器及其应用、信号产生电路、直流电源、数字电路基础、逻辑代数与逻辑函数、组合逻辑电路、双稳态触发器、时序逻辑电路、数模和模数转换器。 本书每章有小结、习题或思考题，并附有一部分习题答案，便于教学和自学。 本书可作为高等学校和成人高等教育各专业电子技术课程的教材(教学学时为40～70)，本书也可供工程技术人员自学和参考。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('电子技术基础', '李洁', '电子信息基础', '新华社', 16, 25, '为适应计算机的普及和通信技术的广泛应用，满足对高等工科院校学生的知识结构要求，作者结合多年的教学改革实践编写了这本《电子技术基础》。全书包括三部分： 第一部分电路分析基础，介绍电路的基本概念、定律和分析方法，正弦交流电路； 第二部分模拟电子技术，介绍二极管、三极管和场效应管的结构以及工作特性和应用，基本放大电路以及反馈和运算放大器； 第三部分数字电子技术，介绍数字逻辑基本概念、组合逻辑电路的分析与设计和时序逻辑电路的分析与设计，数模转换和模数转换等。 本书所选内容与现代科技的发展相结合，突出新技术、新器件。概念的阐述准确、语言简明扼要，避免繁复的公式推导，适合作为应用类理工科大学教材，也可以供相关科技工作者和自学者参考。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('电子电路的计算机辅助分析与设计方法（第2', '杨华中、汪蕙等', '电子信息基础', '新华社', 4, 29, '本书全面地介绍了计算机辅助电路设计的基本理论和算法。全书分10章，内容包括： 电路方程的建立和求解，稀疏矩阵技术，半导体器件模型与宏模型，线性和非线性电路直流、频域和时域的分析原理和计算方法，灵敏度计算，容差分析，最优化设计，以及目前大规模集成电路的一些新的分析方法。本书在注重讲述基本概念和基本原理的同时，还结合当前纳米集成电路的特点，介绍了BSIM3V3.2模型、遗传算法、混合仿真技术等新技术。书中所涉及的每一种分析方法都结合实际电路给出了相应的计算实例，并附有习题，便于读者阅读和理解。 本书适于作高等院校电类专业本科生和研究生的教材，也可供从事电路设计和计算机辅助设计软件开发的科技人员参考。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('电子线路实验——模拟电路实验', '沈小丰', '电子信息基础', '新华社', 30, 39, '本书从电子实验的角度出发，系统地研究了低频和高频模拟电路。全书内容包括低频小信号放大电路、反馈电路、集成运放及信号处理电路、可编程模拟电路、低频功率放大电路、电源电路、低频模拟电路的综合应用、高频谐振放大和振荡电路、信号频谱变换电路以及高频电路的综合应用等共10章的实验，同时在附录中给出了模拟电路实验的各类参考资料，为进行实验和设计提供了很大方便。 本书各章的内容和目前“模拟电路”和“高频电路”等课程的课堂教学内容对应，但完全采用了实验的研究方法，同时增加了一些如“D类功率放大器”、“二极管函数变换器实验”、“开关电源原理实验”等近年发展起来的应用型的电子线路章节，全书包括大量综合性和设计性实验，对于一些设计性实验，本书还给出了详尽的示例，以帮助学生更快地提高实验设计能力。 各章内部首先讲述该章的基础知识和基本实验技能，然后以小节的形式给出该章的各个实验。各实验小节内部强调实验的目的和实验的方法，引导学生在弄懂实验原理的基础上完成实验，以提高学生的思维能力、工程实践能力和自主创新能力。 本书在注重提高学生能力的同时，也注重了实践和理论的结合，全书在编排上认真考虑了各具体实验章节的衔接顺序关系，强调按照学生的思维规律组织教材，以小步伐教学、循序渐进的手段，达到使学生掌握电子线路知识、提高各方面能力的目的。 本书是高等教育“十一五”国家级规划教材《电子线路实验》的第2本，其他两本《电子线路实验》教材分别是《电路基础实验》和《数字电路实验》。这三本《电子线路实验》教材和《电子技术实践基础》一起，构成了电子、电气类专业的实验和实践系列教材。 本书既可作为高等学校电子、电气类各专业学生的实验教材，也可作为其他各专业学生理解和掌握电子线路知识和实验系统的教材或教参，同时本书也可作为广大电子行业工作者和电子爱好者的参考书。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('电路实验与测量', '徐云', '电子信息基础', '新华社', 3, 28, '本书由实验知识、电路原理实验和附录三部分组成。实验知识部分全面地介绍完成实验所必须了解的相关知识，如计量知识、测量方法、实验数据的处理、实验作图、常用实验仪器的原理和计算机仿真实验软件与虚拟仪器。电路原理实验部分的内容基本覆盖了“电路原理”课程范围，众多的实验内容可为因材施教提供菜单型的选课方式，其中包含了设计型考试实验和开放式的实验。附录部分提供了许多常用测量仪器的使用说明，这些测量仪器基本可以测量“电路原理”课程所涉及的电路参数。 本书是为高等院校理工科各专业大学生编写的电路原理实验教材，也可供相关工程人员学习参考。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('程序设计基础与数据结构', '戚桂杰、姚云鸿、张新', 'C程序设计', '新华社', 37, 38, '本书包括程序设计基础与数据结构两部分内容。在程序设计基础部分，讲述了C语言程序设计方法，主要包括程序设计基本概念、数据类型、程序控制、指针、函数、文件和大型程序设计原理与方法等内容。在数据结构部分，介绍了线性表、栈、队列、树、二叉树、查找表等基本数据结构以及相应的算法和相关应用。数据结构部分的所有算法皆以C语言为描述语言。 本书注重理论联系实际，概念清晰，论述严谨，通俗易懂。 本书可作为信息管理与信息系统专业或计算机类相关专业的本科或专科教材，也可供编程爱好者学习参考。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('网络管理基础（第二版）', '尚晓航', '计算机网络', '新华社', 20, 30, '本书以实际应用为目的，介绍了建设和管理中小型网络的必要知识、设备和实际操作技能。全书从系统管理员的角度出发，结合中小型Intranet的建设和管理中的具体要求，系统地讲解了网络工程管理的基础知识、网络管理员的职责、网络系统集成、网络互连设备的管理技术，以及在规划、设计、实现和管理Intranet时所必备的基础知识和实用操作技能。 本书的特点是既有适度和必要的基础理论知识介绍，又有详细的路由器和交换机等网络工程设备的基本管理技术，还有使用Windows Server 2003进行Intranet网络管理的实用技术指导。本书力求反映最新的网络管理技术。书中配有大量实例和操作插图，内容深入浅出。每章后面附有习题以及实训项目的条件与建议。此外，本书还特别针对那些没有网络设备的学校和个人，介绍了网络模拟器的使用，并介绍了与使用真实网络设备进行网络管理的差异。因此，本书不但可以作为计算机应用类、电子信息类、自动化类等本科应用型专业的网络管理、网络工程、网络规划与设计等课程的教材，也可以作为计算机网络专业等职业院校相关课程的教材，还可以作为计算机网络管理员技能培训班的教材，同时也是在职技术人员补充新知识和掌握新技能的自学参考书', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('自动控制原理实验教程', '程鹏', '计算机技术及应用', '新华社', 24, 26, '本书根据《全国高等学校自动化专业系列教材》编委会制定的“自动控制原理实验教程”大纲，配合大多数高等理工科院校“自动控制原理”课程教材的基本内容和教学要求编写的，也兼顾了非自动化专业本科生、硕士研究生的教学要求。 书中首先简单介绍自动控制原理的基础知识和实验的基本方法，系统地讲解了自动控制系统的模拟计算机仿真、数字计算机仿真和混合计算机仿真，紧密结合“自动控制原理”课程的基本内容，设计出多个验证性和设计性实验单元。为了加强工程训练和综合应用能力的培养，还着重安排了综合性实验单元。最后介绍了虚拟仪器技术在自动控制原理实验中的应用。书中各部分内容保持了相对的独立性，以便不同的学校根据实验设备与实验课时选用。 本书可作为高等学校本科生、专科生及成人教育、继续教育学生学习自动控制原理和进行自动控制原理实验的教材，也可作为非自动化专业硕士研究生的参考书。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('计算机基础实用教程', '刘福才', '计算机文化基础', '新华社', 1, 30, '本书由浅入深、循序渐进地介绍了计算机的基础知识。全书共分为13章，详细介绍了计算机的基础知识、计算机的基本操作及文字输入、中文版Windows XP操作基础、Word 2003文字处理系统、Word 2003的高级应用、Excel 2003电子表格系统、Excel 2003的高级应用、PowerPoint 2003幻灯片制作系统、数据库技术基础、多媒体技术、网络基础与局域网应用、Internet应用以及计算机的日常维护。此外，本书还通过多个上机练习来帮助用户巩固本书所介绍的相关知识。 本书内容丰富，结构清晰，语言简练，图文并茂，具有很强的实用性和可操作性，是一本适合于大中专院校、职业院校及各类社会培训学校的优秀教材，也是广大初、中级计算机用户的自学参考书。 本书对应的电子教案、实例源文件和习题答案可以到http://www.tupwk.com.cn/edu网站下载。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('计算机应用基础教程（第2版）', '刘旸、纪玉波、李欣', '计算机技术及应用', '新华社', 14, 34, '本书是《计算机应用基础教程》的第2版。作为用于计算机应用基础教学的教材，本教程介绍了计算机与信息技术基础知识、计算机系统与数据的表示和运算、操作系统基础、办公信息处理技术基础、计算机网络基础、Internet与Intranet基础、软件开发与信息处理技术基础、计算机与信息安全基础和上机实验这9部分内容。 本教程既可以作为高等学校非计算机专业“计算机应用基础”课程的教材，也可以作为计算机和信息技术基础知识的培训和自学教材。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('计算机硬件技术基础', '张钧良', '计算机组成', '新华社', 35, 32, '本书是专门面向高等学校非计算机的理工科各专业学生编写的，较全面地介绍了计算机系统的组成和各部分的工作原理。本书从计算机应用的需要出发，以当今计算机世界占有主导地位的Intel系列计算机为主要平台，系统介绍计算机的硬件技术和应用基础，包括计算机系统的概念、计算机的组成结构及原理、汇编语言程序设计初步知识、计算机的接口技术、外围设备以及网络硬件技术基础。 本书可作为普通高等学校非计算机专业的理工类各专业本科学生“计算机硬件技术基础”课程的教材，也可作为成人高校的培训教材和广大科技工作者的自学参考书。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('计算机硬件技术基础——教学指导、习题详解', '李继灿', '计算机技术及应用', '新华社', 31, 25, '本书是《计算机硬件技术基础》的配套教学指导、习题详解与综合训练。全书分为3部分： 第1部分是教学指导；第2部分是习题详解；第3部分是综合训练。教学指导与主教材的章节划分一致，从教学法上对主教材的教学要求、重点与难点等均给出了重要的补充说明；习题详解与主教材各章习题完全配套，给出了详尽的参考答案，这些对于深入理解和熟练掌握主教材内容都是十分重要的；综合训练共包含10个综合型训练，可根据不同的教学条件与课时数，结合实验或课程设计进行选择与组合。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('计算机网络实用教程（第二版）', '陈明', '计算机网络', '新华社', 12, 34, '本书较详细地介绍了计算机网络原理的有关内容，主要包括计算机网络及数据通信基础、网络协议和服务、计算机网络体系结构、物理层协议、数据链路层协议、网络层协议、传输层协议、高层协议、局域网、广域网、网络设计及网络安全等内容。 本书内容系统、全面，可作为大学计算机网络及相关课程的教材，也可作为计算机网络工程技术人员的参考书。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('超大规模集成电路互连线分析与综合', '喻文健', '其他', '新华社', 22, 29, '本书将对VLSI互连线的当前问题提供面向物理设计的全面论述。特别值得注意的一点是，本书同时包括了互连线分析和综合两方面内容。在现代VLSI系统中，互连线的重要性日益增加，相关的研究近年来也逐渐成熟，因此我们觉得现在正是需要这样一本书的时候。我们希望通过本书，对这个研究领域提出独特的、而且是及时的观点和展望。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('软件工程（第2版）', '李代平', '软件工程', '新华社', 21, 46, '软件工程是指导计算机软件开发的工程科学技术，本书是在《软件工程》第1版的基础上，根据使用该教材的教师和读者的意见，对原书在结构和内容上做了很大调整和修改，从而修订的。全书共分为4个部分，第一部分基础理论，第二部分结构化方法，第三部分面向对象方法与实现，第四部分质量与工程管理。本书对每章概念进行了严格的论述，每一概念都有相应的例子解释，同时每章都配有习题，使读者巩固所学知识。 本书作为高等学校计算机专业本科生和研究生教材，也可作为工程技术人员的参考用书。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('软件工程分析案例', '李代平', '软件工程导论', '新华社', 23, 36, '本书从案例分析的角度简要介绍了软件工程的原理、方法和技术，包括传统软件工程方法和面向对象方法。书中提供了大量的来自实际项目开发过程中的经验性案例，实用性强，并且提供了软件工程开发各个环节具体的活动过程和产品规范。通过各方面的案例向读者介绍软件开发的全过程。提高读者分析实际问题、开发软件的能力。 本书可作为本科院校计算机及相关专业的软件工程课程案例分析教材，也可供从事计算机软件开发及应用的广大科技人员参考使用。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('软件工程设计案例教程', '李代平', '软件工程', '新华社', 25, 39, '本书简要介绍了软件工程设计的基本原理、方法和技术，涵盖了传统软件工程方法和面向对象方法。书中所提供的各种设计案例都是来自实际项目开发过程中经验性案例，实用性强。书中给出了软件工程开发设计环节中具体的设计活动过程和产品规范，通过多方面的案例向读者介绍软件设计的全过程，以提高读者设计软件的能力。 本书可作为本科院校计算机及相关专业的软件工程设计课程教材，也可供从事计算机软件开发及应用的广大科技人员参考。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('通信中的同步技术及应用', '季仲梅等', '通信工程', '新华社', 7, 19, '本书在讲述锁相技术的基础上，根据通信领域的新发展，结合作者的教学和科研实践经验，介绍了一些新的同步技术和方法。前4章是有关同步技术的核心部件锁相环，讲述锁相环的工作原理、数学模型以及跟踪、捕获、噪声性能。后4章取材新颖，讲述了当前通信工程中新的同步技术和方法。其中，第5章讲述了当前通信工程中实用的两类典型数字锁相环，用实例讲述了奈奎斯特型全数字锁相环的设计方法。第6章讲述了抑制载波信号和突发信号中的载波同步方法。第7章讲述了用全数字算法实现定时同步的新方法。第8章介绍了面向工程实现的带序贯滤波的全数字码跟踪环以及适用于WCDMA基站的基于内插的全数字PN码跟踪环。 全书由浅入深，分析细致，条理清楚。 本书可作为高等学校工科通信专业的高年级本科教材，也可供通信工程技术人员和相关专业研究生参考。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('面向对象程序设计实用教程（第二版）习题与', '牟永敏、张海藩', 'C++语言', '新华社', 34, 16, '本书是作者总结多年来从事面向对象程序设计教学和科研的经验，从实用性的角度编写而成。 全书分为四部分。第一部分介绍上机环境，包括Visual C++ 6.0，Borland C++ 3.1及Turbo C++ 3.0三个系统的安装步骤、编辑方法和简单的程序调试技术。第二部分配合《面向对象程序设计实用教程》第二版的增改情况对各章的内容和习题进行了修订，并且相关习题均在Visual C++环境下编译通过。第三部分介绍在C++程序设计中需要注意的一些常见问题。最后是面向对象程序设计模拟试题部分。 本书可作为高等学校“面向对象程序设计”课程的辅助教材或教学参考书，也可供软件工作者和需要开发应用软件的广大计算机用户阅读参考。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('高档AVR单片机原理及应用', '胡汉才', '光电子', '新华社', 8, 49, '本书以ATmega系列嵌入式单片机为主线，系统地论述了这类高性能单片机的组成原理、指令系统和汇编语言程序设计，并在此基础上详细讨论了SRAM、FLASH和E2PROM存储器、中断系统、I/O端口、定时器/计数器、A/D和D/A、AC比较器、USART、SPI和TWI等片内功能模块的结构、原理和使用方法，最后还结合实例对这类单片机应用系统的设计、开发和调试等进行了专门介绍。全书共分10章，每章都有一定数量的习题，习题解答和实验指导书将以配套教材形式另行出版。 本书在编写过程中参阅了大量AVR单片机的最新资料，吸收了单片机应用新成果，也融入了作者在从事ATmega系列单片机应用开发中的成功实例。全书自成体系、结构紧凑而合理，层次清楚、前后呼应和语言通俗，具有先进性、通用性、系统性和实用性。 本书可作为高等院校研究生和大学本科生的单片机教材，也是从事单片机应用与开发人员的一本较为理想的参考书。', 1);
+INSERT INTO `database`.book (bookname, auther, booktype, publisher, booknum, price, introduction, is_borrow) VALUES ('高档AVR单片机原理及应用习题与实验指导', '胡汉才', '计算机技术及应用', '新华社', 29, 18, '本书是《高档AVR单片机原理及应用》的配套教材。全书共分4章： 第1章是主教材的习题解答； 第2～4章是配合主教材的实验指导，介绍了ATmega 8单片机开发实验器、ATmega 8的实验和ATmega 8的实验解答。在第3章中，作者精心设计了16个实验，涵盖了ATmega系列单片机片内各功能模块的使用方法，内容全面，具有先进性、系统性和实用性等特点，每个实验都附有相应参考程序。 本书可作为高等院校研究生和大学本科生的单片机的实践教材，也是从事嵌入式单片机应用与开发人员的一本较为理想的参考书。', 1);
+
+
+# 添加借书记录
+CREATE TRIGGER db_borrow_book
+    AFTER INSERT ON borrow_book
+    FOR EACH ROW
+BEGIN
+    UPDATE book
+    SET booknum = booknum - 1
+    WHERE NEW.bookname = bookname;
+
+    update book_no
+    set state = 0
+    where NEW.bookno = bookno;
+
+    update user
+    set borrownum = borrownum + 1
+    where username = NEW.username;
+END;
+
+# 添加还书记录
+CREATE TRIGGER db_return_book
+    AFTER INSERT ON return_book
+    FOR EACH ROW
+BEGIN
+    UPDATE book
+    SET booknum = booknum + 1
+    WHERE NEW.bookname = bookname;
+
+    update book_no
+    set state = 1
+    where NEW.bookno = bookno;
+
+    update user
+    set borrownum = borrownum - 1
+    where username = NEW.username;
+
+    delete
+    from borrow_book
+    where borrow_book.bookno = NEW.bookno;
+END;
+
+# String s1 = "delete from book where bookname=?";
+# String s2 = "delete from borrow_book where bookname=?";
+# String s3 = "delete from return_book where bookname=?";
+# String s4 = "delete from book_no where bookname=?";
+# 删除书籍
+CREATE TRIGGER db_delete_book
+    AFTER delete ON book
+    FOR EACH ROW
+BEGIN
+    delete from borrow_book
+    where bookname = OLD.bookname;
+
+    delete from return_book
+    where bookname = OLD.bookname;
+
+    delete from book_no
+    where bookname = OLD.bookname;
+END;
+
+# 按书籍编号删除某一本书籍
+CREATE TRIGGER db_delete_one_book
+    AFTER delete ON book_no
+    FOR EACH ROW
+BEGIN
+    delete from borrow_book
+    where bookname = OLD.bookname;
+
+    delete from return_book
+    where bookname = OLD.bookname;
+
+    UPDATE book
+    SET booknum = booknum - 1
+    WHERE OLD.bookname = bookname;
+END;
+
+
+drop trigger db_borrow_book;
+
+
+insert into borrow_book values (222,'202007070717','Authorware多媒体课件制作实用教',222);
+insert into return_book values (222,'202007070717','Authorware多媒体课件制作实用教',222);
+delete from book where bookname = 'Authorware多媒体课件制作实用教';
+delete from book_no where bookno = '10010';
+
+

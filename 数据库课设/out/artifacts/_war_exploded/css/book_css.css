@@ -1,0 +1,53 @@
+body{margin: 10px;}
+.demo-carousel{height: 200px; line-height: 200px; text-align: center;}
+
+.container{
+
+}
+/* 设置头部样式 */
+.title{
+    margin: 10px auto;
+}
+
+/* 设置导航样式 */
+.nav{
+    margin: 10px auto;
+}
+
+/* 设置主体内容样式 */
+.content{
+    width: 100%;
+    /*height: 1000px;*/
+}
+
+/* 设置主体内容左列的样式 */
+.content .demo1{
+    position: absolute;
+    width: 10%;
+    height: 100%;
+    /*高度设置为100%的时候表示占满容器 那么后期就无法设置该盒子的上外边距和下外边距
+    但是可以设置px为单位作高度 只要不把父容器占满即可
+    */
+    margin-right: 20px;
+    left: 1%;
+}
+
+/* 设置主体内容的中间的内容的样式 */
+.content .demo2{
+    position: absolute;
+    width: 80%;
+    height: 100%;
+    left: 17%;
+    margin-right: 20px;
+}
+
+/* 设置底部 */
+.bottom{
+    height: 200px;
+    background-color: lightslategray;
+    margin: 0px auto;
+}
+
+#data{
+    float: right;
+}

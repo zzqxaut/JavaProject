@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!---          映射文件            -->
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.SelectMapper">
+    <!--
+        mapper接口映射文件要保证两个一致：
+        1，mapper接口的全类名和映射文件的namespace一致
+        2，mapper接口中的方法的方法名要和映射文件中的sql的id保持一致
+    -->
+    <!--
+        1、查询结果为一个或多个实体类对象，用List<User>作为返回值
+        2、查询结果
+    -->
+<!--    List<User>  getUserByPassword(@Param("password") String password);-->
+    <select id="getUserByPassword" resultType="User">
+        select * from user where password = #{password}
+    </select>
+
+<!--    List<User> getAllUser();-->
+    <select id="getAllUser" resultType="User">
+        select * from user
+    </select>
+
+<!--    Integer getCount();-->
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from user
+    </select>
+</mapper>
+
+
+

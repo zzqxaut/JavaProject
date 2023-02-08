@@ -1,0 +1,109 @@
+
+#postlist
+{
+    width: 400px;
+    margin: 0 auto;
+    text-align:center;
+    /* padding: 10px 20px 30px 40px; */
+    /* border: #165797; */
+
+    /* background-color:#04c2fc; */
+}
+
+table
+{
+    width: 100%;
+    font-size: 20px;
+    /* background-color:#2f9b48; */
+}
+
+h1
+{
+    font-size: 24px;
+    text-align:center;
+}
+/*#loginreset*/
+/*{*/
+/*    text-align: right;*/
+/*}*/
+img
+{
+    height: 20px;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('./background.png');
+    background-size: cover;
+}
+.login{
+    width: 500px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+            to right bottom,
+            rgba(255,255,255,.7),
+            rgba(255,255,255,.5),
+            rgba(255,255,255,.4)
+    );
+    /* 使背景模糊化 */
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px #a29bfe;
+    border-radius: 15px;
+}
+
+.table{
+    font: 900 40px '';
+    text-align: center;
+    letter-spacing: 5px;
+    color: #3d3d3d;
+}
+
+.box{
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.box input{
+    width: 400px;
+    height: 100%;
+    margin-bottom: 20px;
+    outline: none;
+    border: 0;
+    padding: 10px;
+    background-color: transparent;
+    border-bottom: 3px solid rgb(150, 150, 240);
+    font: 900 16px '';
+}
+
+.go{
+    text-align: center;
+    display: block;
+    height: 16px;
+    padding: 12px;
+    font: 900 10px '';
+    border-radius: 10px;
+    margin-top: 10px;
+    color: #fff;
+    letter-spacing: 3px;
+    background-image: linear-gradient(to left,
+    #fd79a8,#a29bf6);
+}
+
+#manage
+{
+    width: 1000px;
+    height: 100px;
+    margin: 0 auto;
+}
