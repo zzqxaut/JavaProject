@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Map;
 
 public class SelectMapperTest {
     @Test
@@ -31,5 +32,13 @@ public class SelectMapperTest {
         SelectMapper mapper = sqlSession.getMapper(SelectMapper.class);
         Integer t = mapper.getCount();
         System.out.println(t);
+    }
+
+    @Test
+    public void getUserByIdToMap(){
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        SelectMapper mapper = sqlSession.getMapper(SelectMapper.class);
+        Map<String, Object> map = mapper.getUserByIdToMap(2);
+        System.out.println(map);
     }
 }

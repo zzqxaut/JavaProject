@@ -138,7 +138,7 @@ function clickReturnBook() {
         "                        <div class=\"pagenum\" id=\"pagenum\"></div>\n" +
         "                    </div>\n"
 
-    showReturnList()
+    showReturnList() //
 }
 
 function clickPublishInform() {

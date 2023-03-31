@@ -6,6 +6,7 @@ package com.mybatis.poji;
 
 
 public class User {
+    private Integer id;
     private String username;
     private String password;
     private String truename;
@@ -13,13 +14,12 @@ public class User {
     private String email;
     private String phonenumber;
     private double balance;
-    private int borrownum;
-    public User(){
+    private Integer borrownum;
 
-    }
+    public User(){}
 
-    public User(String username, String password, String truename, String usertype,
-                String email, String phonenumber, double balance, int borrownum) {
+    public User(Integer id, String username, String password, String truename, String usertype,
+                String email, String phonenumber, double balance, Integer borrownum ) {
         this.username = username;
         this.password = password;
         this.truename = truename;
@@ -27,6 +27,7 @@ public class User {
         this.email = email;
         this.phonenumber = phonenumber;
         this.balance = balance;
+        this.id = id;
         this.borrownum = borrownum;
     }
 
@@ -90,14 +91,20 @@ public class User {
         return borrownum;
     }
 
-    public void setBorrownum(int borrownum) {
+    public void setBorrownum(Integer borrownum) {
         this.borrownum = borrownum;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
+        return "User{" +" id=" + id +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", truename='" + truename + '\'' +
                 ", usertype='" + usertype + '\'' +
