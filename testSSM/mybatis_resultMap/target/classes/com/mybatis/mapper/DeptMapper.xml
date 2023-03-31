@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!---          映射文件            -->
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.DeptMapper">
+    <!--
+        mapper接口映射文件要保证两个一致：
+        1，mapper接口的全类名和映射文件的namespace一致
+        2，mapper接口中的方法的方法名要和映射文件中的sql的id保持一致
+    -->
+    <!--
+        字段名与属性名不一致，处理映射关系
+        1、为查询字段设置别名，与属性名保持一致
+        2、当数据库字段符合mysql使用_，属性符合java要求使用驼峰
+        此时可以在mabatis核心配置文件中设置一个全局配置，可以自动将下划线映射为驼峰
+        emp_id:empId, emp_name:empName
+        两种命名必须都是标准的
+        3、使用resultMap自定义映射处理
+        处理一对一关系：resultMap配置自定义映射关系
+        处理多对一关系：
+        ①级联方式处理(搞清楚谁跟谁映射)
+        ②association
+        ③分步查询（分几步，每一步是什么）
+        也要使用association
+            分步查询优点：可以实现延迟加载
+            若仅获取员工信息，则不会执行获取部门信息的第二步sql，减少内存消耗
+            与两个属性有关
+        处理一对多关系：
+        1、collection
+        2、分步查询
+    -->
+    <!--
+        resultMap配置自定义映射关系(每个字段与属性都要设置)
+        属性
+        id：唯一标识一个resultmap
+        type：需要处理映射关系的实体类类型
+        标签
+        id：设置主键和属性的映射关系
+        result：设置普通字段和属性的映射关系
+        id，result标签：
+            column：设置映射关系中字段名，必须是sql查出的字段
+            property：设置映射关系中属性名，必须是处理的实体类类型的属性名
+        association处理多对一映射关系（处理一个类的实体类类型的属性）
+            association标签
+            property：要处理的映射关系的属性的属性名（实体类类型属性）
+            javatype：该属性对应的实体类类型
+            分步查询
+            select:下一步查询使用的sql语句的唯一标识(全类名)
+            column:上一步查询的某个sql字段，作为下一步查询的条件
+            fetchType:在全局配置开启延迟加载时，设置分步查询类型为立即加载(eager)或延迟加载(lazy)
+
+        collection：处理一对多映射关系（处理一个类的集合类型的属性）
+            collection标签
+            property：要处理的映射关系的属性的属性名（集合类型属性）
+            ofType：集合中的属性类型
+
+
+    -->
+<!--    Dept getEmpAndDeptByStepTwo(@Param("deptId") Integer deptId);-->
+    <select id="getEmpAndDeptByStepTwo" resultType="Dept">
+        select * from dept where dept_id = #{deptId};
+    </select>
+
+<!--    Dept getDeptAndEmpByDeptId(@Param("deptId") Integer deptId)-->
+    <resultMap id="deptAndEmpResultMap" type="Dept">
+        <id column="dept_id" property="deptId"></id>
+        <result column="dept_name" property="deptName"></result>
+        <collection property="emps" ofType="Emp">
+            <id column="emp_id" property="empId"></id>
+            <result column="emp_name" property="empName"></result>
+            <result column="age" property="age"></result>
+            <result column="gender" property="gender"></result>
+        </collection>
+    </resultMap>
+    
+    <select id="getDeptAndEmpByDeptId" resultMap="deptAndEmpResultMap">
+        select * 
+        from dept 
+        left join emp 
+        on dept.dept_id = emp.dept_id 
+        where dept.dept_id = #{deptId};
+    </select>
+</mapper>
+
+
+
