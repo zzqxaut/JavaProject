@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--约束，规定配置文件中能写哪些标签-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--
+    bean:配置一个对象，将其交给IOC容器管理
+    属性：
+    id：唯一标识
+    class：设置bean对象对应的实体类（全类名）
+-->
+
+    <bean id="helloworld" class="com.pojo.HelloWorld">
+
+    </bean>
+</beans>

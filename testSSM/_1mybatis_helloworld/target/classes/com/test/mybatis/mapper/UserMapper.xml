@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<!---          映射文件            -->
+
+<!--xml约束，规定当前配置文件能使用哪些标签-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.mybatis.mapper.UserMapper">
+    <!--
+        mapper接口映射文件要保证两个一致：
+        1，mapper接口的全类名和映射文件的namespace一致
+        2，mapper接口中的方法的方法名要和映射文件中的sql的id保持一致
+    -->
+
+    <!--int insertUser();-->
+    <insert id="insertUser">
+        INSERT INTO user (username, password, truename, usertype, email, phonenumber, balance, id, borrownum ) VALUES ('vvv', '111', 'zzz', '用户', 'zz@163.com', '15766666666', '0', '0','0');
+    </insert>
+
+<!--    void updateUser();-->
+    <update id="updateUser">
+        update user set usertype="管理员" where username="aaa";
+    </update>
+
+<!--    void deleteUser()-->
+    <delete id="deleteUser">
+        delete from user where username="aaa";
+    </delete>
+<!--    User getUserByUsername()-->
+<!--    二者只能设一个-->
+<!--    resultMap自定义映射（用于字段名于属性名不一致）,处理一对多和多对一的映射关系-->
+<!--    resultType默认映射（用于字段名与属性名相同）,置结果类型，即查询的数据要转换成为的java类型-->
+    <select id="getUserByUsername" resultType="User"><!--写全类名,或使用别名-->
+        select * from user where username="aaa";
+    </select>
+
+<!--    List<User> getAllUser()-->
+    <select id="getAllUser" resultType="com.test.mybatis.pojo.User"><!--先转换为实体类对象 -->
+        select * from user;
+    </select>
+</mapper>
+
+
+

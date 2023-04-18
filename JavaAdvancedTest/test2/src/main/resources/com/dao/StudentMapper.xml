@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!---          映射文件            -->
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.StudentDao">
+<!--    public List<Student> selectAlStudent();-->
+    <select id="selectAllStudent" resultType="Student">
+        select * from student;
+    </select>
+<!--    public int addStudent(Student student);-->
+    <insert id="addStudent" parameterType="Student">
+        insert into student values(#{stuid},#{stuname},#{stusex},#{stunum});
+    </insert>
+<!--    public int updateStudent(Student student);-->
+    <update id="updateStudent" parameterType="Student">
+        update student
+        set stuname = #{stuname},stusex = #{stusex}, stunum = #{stunum}
+        where stuid = #{stuid};
+    </update>
+<!--    public int deleteStudentByStuid(@Param("stuid")Integer stuid);-->
+    <delete id="deleteStudentByStuid" parameterType="Integer">
+        delete from student where stuid = #{stuid};
+    </delete>
+<!--    public Student selectStudentByStuId(@Param("stuid")Integer stuid);-->
+    <select id="selectStudentByStuId" resultType="Student" parameterType="Integer">
+        select * from student where stuid = #{stuid};
+    </select>
+
+</mapper>
+
+
+

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!---          映射文件            -->
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.UserMapper">
+    <!--
+        mapper接口映射文件要保证两个一致：
+        1，mapper接口的全类名和映射文件的namespace一致
+        2，mapper接口中的方法的方法名要和映射文件中的sql的id保持一致
+    -->
+    <!--
+        #{}时占位符赋值，即？，需要用预编译对象set方法赋值，解析时会自动加上''
+        ${}是字符串拼接
+        1、mapper接口方法参数为单个字面量
+        {}中内容可以是任意值，都能获取参数值,一般设为参数名
+        ${}方式要加单引号 '${aaa}'
+        2、mapper接口方法参数为多个字面量
+        自动将参数放入map映射，以两种方式存储数据：
+        arg0、arg1...为键，参数为值
+        param1、param2...为键，参数为值
+        通过#{}，${}访问键即可获取对应值，注意${}单引号问题
+        3、mapper接口方法参数为map类型参数，可以自己设置键值对
+        通过#{}，${}访问键即可获取对应值，注意${}单引号问题
+        4、mapper接口方法参数为实体类类型
+        通过#{}，${}访问实体类中的属性名，即可获取对应值，注意${}单引号问题
+        5、mapper接口方法参数为多个字面量，在接口参数上设置@Param注解
+        mybatis将参数放入map中，以两种方式存储：
+        @Param注解的value属性值为键，参数为值
+        param1、param2...为键，参数为值
+    -->
+
+<!--    User getUserByUsername(String username);-->
+    <select id="getUserByUsername" resultType="User">
+        <!-- select * from user where username = #{user}; -->
+        select * from user where username = '${user}';
+    </select>
+
+<!--    User checkLogin(String username,String password);-->
+    <select id="checkLogin" resultType="User">
+        select * from user where username = #{param1}  and password = #{param2}
+    </select>
+
+<!--    User checkLoginByMap(Map<String,Object> map);-->
+    <select id="checkLoginByMap" resultType="User">
+        select * from user where username=#{username} and password=#{password}
+    </select>
+<!--    void insertUser(User user);-->
+    <insert id="insertUser" >
+        insert into user values(#{id},#{username},#{password},#{truename},#{usertype},
+                                #{email},#{phonenumber},#{balance},#{borrownum})
+    </insert>
+
+<!--    User checkLoginByParam(@Param("username") String username, @Param("password") String password);-->
+    <select id="checkLoginByParam" resultType="User">
+        select * from user where username=#{username} and password=#{password}
+    </select>
+</mapper>
+
+
+
