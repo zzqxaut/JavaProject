@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!---          映射文件            -->
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.SpecialSQLMapper">
+    <!--
+        mapper接口映射文件要保证两个一致：
+        1，mapper接口的全类名和映射文件的namespace一致
+        2，mapper接口中的方法的方法名要和映射文件中的sql的id保持一致
+    -->
+<!--    模糊查询三种方式-->
+<!--    List<User> getUserByLike(@Param("mohu") String mohu);-->
+    <select id="getUserByLike" resultType="User">
+        select * from user where username like '%${mohu}%'
+<!--        select * from user where username like concat('%', #{mohu}, '%')-->
+<!--        select * from user where username like "%"#{mohu}"%"-->
+    </select>
+
+<!--    批量删除,不能用#{}-->
+<!--    void deleteMoreUser(@Param("ids") String ids);//ids删除的id-->
+    <delete id="deleteMoreUser" >
+        delete from user where id in(${ids})
+<!-- 等价于delete from user where id in(9,10)-->
+    </delete>
+
+<!--    动态设置表名，不能用#{}-->
+<!--    List<User> getUserList(@Param("tableName") String tableName);-->
+    <select id="getUserList" resultType="User">
+        select * from ${tableName}
+    </select>
+
+<!--    void insertUser(User user);-->
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+<!--        数据库中主键也应设置自增-->
+<!--        useGeneratedKeys表示是否使用自增主键, keyProperty表示将自增主键值放在实体类参数的哪个属性中-->
+        insert into user(id,username,password,truename,usertype, email,phonenumber,balance,borrownum) values(null,#{username},#{password},#{truename},#{usertype}, #{email},#{phonenumber},#{balance},#{borrownum})
+    </insert>
+</mapper>
+
+
+

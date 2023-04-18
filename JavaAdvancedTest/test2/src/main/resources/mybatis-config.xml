@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--          核心配置文件        -->
+
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+    <!--引入properties文件,用于配置dataSourse中的property，此后可以通过在当前文件中使用的方式访问value-->
+    <properties resource="jdbc.properties"/>
+
+    <typeAliases>
+        <package name="com.po"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"></property><!--驱动类-->
+                <property name="url" value="${jdbc.url}"></property><!--url地址-->
+                <property name="username" value="${jdbc.username}"></property><!--用户名-->
+                <property name="password" value="${jdbc.password}"></property><!--密码-->
+            </dataSource>
+        </environment>
+
+    </environments>
+
+    <!--    引入mabatis映射文件-->
+    <mappers>
+        <mapper resource="com/dao/StudentMapper.xml" />
+        <!--        <package name="com.dao"/>-->
+    </mappers>
+</configuration>

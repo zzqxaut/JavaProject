@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+<!--
+    反射+工厂模式创建对象，采用无参构造
+    反射：通过类路径实例化一个类-->
+<!--
+    id：唯一标识一个bean
+    class：bean对应的实体类
+    scope属性：指定获取单例还是多例
+-->
+
+
+    <bean id="student1" class="com.pojo.Student"></bean>
+<!--
+    1、依赖注入setter注入
+    property通过成员变量的set方法赋值
+    name需要赋值的属性名（与set方法有关）
+    value设置属性值
+    可为任意属性赋值，缺少为null
+-->
+    <bean id="student2" class="com.pojo.Student">
+        <property name="sid" value="1001"></property>
+        <property name="sname" value="张三"></property>
+        <property name="age" value="23"></property>
+        <property name="gender" value="男"></property>
+    </bean>
+<!--
+    2、依赖注入构造器注入
+    constructor-arg使用有参构造函数（对构造函数参数赋值）
+    必须与对应的构造器匹配
+-->
+    <bean id="student3" class="com.pojo.Student">
+        <constructor-arg name="sid" value="1002"></constructor-arg>
+        <constructor-arg name="sname" value="王五"></constructor-arg>
+        <constructor-arg name="age" value="30"></constructor-arg>
+        <constructor-arg name="gender" value="女"></constructor-arg>
+    </bean>
+<!--
+    3、特殊赋值
+    ①字面量赋值：value属性进行字面量赋值
+    ②null值：property标签中添加子标签null
+    ③特殊字符：<作为属性值，要用xml实体代替
+        <:&lt;
+        >:&gt;
+    ④CDATA区：该标签内的特殊字符会被原样解析，快捷键CD
+-->
+    <bean name="student4" class="com.pojo.Student">
+        <property name="sid" value="1003"></property>
+<!--        <property name="sname" value="&lt;张六&gt;"></property>-->
+        <property name="sname"><value><![CDATA[<张思>]]></value></property>
+        <property name="age"><value>34</value></property>
+        <property name="gender"><null></null></property>
+    </bean>
+<!--
+    4、为类类型属性注入：
+    ①ref属性：引用IOC容器中的bean的id（外部bean），并填充所需对象
+    ②级联方式：内部bean,不能被IOC容器直接获取
+-->
+    <bean id="student5" class="com.pojo.Student">
+        <property name="sid" value="1005"></property>
+        <property name="sname" value="555"></property>
+        <property name="age" value="23"></property>
+        <property name="gender" value="男"></property>
+        <property name="aClass" ref="class1"></property>
+    </bean>
+    <bean id="class1" class="com.pojo.Class">
+        <property name="cid" value="111"></property>
+        <property name="cname" value="666班"></property>
+    </bean>
+    <!--
+        5、数组类型属性赋值（一对多）
+        使用array标签
+        根据数组元素类型选择value标签或ref标签，ref的bean属性指明所需bean id
+    -->
+    <bean id="student6" class="com.pojo.Student">
+        <property name="sid" value="1006"></property>
+        <property name="sname" value="555"></property>
+        <property name="age" value="23"></property>
+        <property name="gender" value="男"></property>
+        <property name="aClass">
+            <bean id="classinner" class="com.pojo.Class">
+                <property name="cid" value="222"></property>
+                <property name="cname" value="777班"></property>
+            </bean>
+        </property>
+        <property name="hobby">
+            <array>
+                <value>唱</value>
+                <value>跳</value>
+                <value>rap</value>
+                <value>篮球</value>
+            </array>
+        </property>
+    </bean>
+<!--
+    6、List集合类型属性赋值
+    内部list：使用list标签
+    根据集合元素类型选择value标签或ref标签，ref的bean属性指明所需bean id
+    外部list：配置list的bean
+-->
+    <bean id="class2" class="com.pojo.Class">
+        <property name="cid" value="111"></property>
+        <property name="cname" value="666班"></property>
+<!--        <property name="students">-->
+<!--            <list>-->
+<!--                <ref bean="student1"></ref>-->
+<!--                <ref bean="student2"></ref>-->
+<!--                <ref bean="student3"></ref>-->
+<!--            </list>-->
+<!--        </property>-->
+        <property name="students" ref="studentList"></property>
+    </bean>
+
+<!--    配置一个集合类型的bean，需要使用util约束，约束可自动导入-->
+    <util:list id="studentList">
+        <ref bean="student1"></ref>
+        <ref bean="student2"></ref>
+        <ref bean="student3"></ref>
+    </util:list>
+
+<!--
+    7、map集合属性赋值
+    内部map：使用map标签
+    外部map：设置map类型bean
+
+-->
+    <bean id="student7" class="com.pojo.Student">
+        <property name="sid" value="1006"></property>
+        <property name="sname" value="555"></property>
+        <property name="age" value="23"></property>
+        <property name="gender" value="男"></property>
+<!--        <property name="teacherMap">-->
+<!--            <map>-->
+<!--                <entry key="1" value-ref="teacher1"></entry>-->
+<!--                <entry key="2" value-ref="teacher2"></entry>-->
+<!--            </map>-->
+<!--        </property>-->
+        <property name="teacherMap" ref="teacherMap"></property>
+    </bean>
+    <bean id="teacher1" class="com.pojo.Teacher">
+        <property name="tid" value="1"></property>
+        <property name="tname" value="大宝"></property>
+    </bean>
+    <bean id="teacher2" class="com.pojo.Teacher">
+        <property name="tid" value="2"></property>
+        <property name="tname" value="小宝"></property>
+    </bean>
+
+    <util:map id="teacherMap">
+        <entry key="1" value-ref="teacher1"></entry>
+        <entry key="2" value-ref="teacher2"></entry>
+    </util:map>
+
+<!--
+    8、p命名空间
+-->
+    <bean id="student8" class="com.pojo.Student"
+    p:sid="123" p:sname="343" p:teacherMap-ref="teacherMap"></bean>
+</beans>
