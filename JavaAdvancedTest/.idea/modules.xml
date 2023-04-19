@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/test1.1/ch6maven.iml" filepath="$PROJECT_DIR$/test1.1/ch6maven.iml" />
       <module fileurl="file://$PROJECT_DIR$/test2/mytabis_helloworld.iml" filepath="$PROJECT_DIR$/test2/mytabis_helloworld.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test3.iml" filepath="$PROJECT_DIR$/test3.iml" />
     </modules>
   </component>
 </project>

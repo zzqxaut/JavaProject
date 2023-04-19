@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="mytabis_helloworld" />
         <module name="ch6maven" />
+        <module name="test3" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

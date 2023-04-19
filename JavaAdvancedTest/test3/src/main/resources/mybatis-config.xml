@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--          全局核心配置文件        -->
+
+<!--xml文件中注释不能嵌套-->
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!--根标签-->
+<configuration>
+
+
+    <!--引入properties文件,用于配置dataSourse中的property，此后可以通过在当前文件中使用的方式访问value-->
+    <properties resource="jdbc.properties"/>
+
+    <settings>
+        <!--mapUnderscoreToCamelCase下划线映射为驼峰-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--开启延迟加载,默认false-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--非按需加载,默认false-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+
+    <!--为某个具体类设置简短别名，在mybatis范围中，可通过其访问原类（复数）-->
+    <typeAliases>
+        <package name="com.mybatis.pojo"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"></property><!--驱动类-->
+                <property name="url" value="${jdbc.url}"></property><!--url地址-->
+                <property name="username" value="${jdbc.username}"></property><!--用户名-->
+                <property name="password" value="${jdbc.password}"></property><!--密码-->
+            </dataSource>
+        </environment>
+
+    </environments>
+
+    <!--    引入mabatis映射文件-->
+    <mappers>
+        <package name="mapper"/>
+    </mappers>
+</configuration>
