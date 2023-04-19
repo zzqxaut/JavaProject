@@ -20,5 +20,5 @@
     <!-- annotation-driven用于简化开发的配置， 注解DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter -->
     <!-- 使用resources过滤掉不需要dispatcher servlet的资源。 使用resources时，必须使用annotation-driven，不然resources元素会阻止任意控制器被调用。 -->
     <!-- 配置静态资源，允许js目录下所有文件可见 -->
-    <mvc:resources location="/js/" mapping="/js/**" />
+<!--    <mvc:resources location="/js/" mapping="/js/**" />-->
 </beans>
